@@ -13,7 +13,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: CrateBrownDecal
-    second: {fileID: 2100000, guid: 890bcbe9df7e49e498df78a3eed94589, type: 2}
+    second: {fileID: 2100000, guid: 2f763409cbfce7d4685832421b304a61, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

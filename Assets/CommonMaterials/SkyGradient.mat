@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Gradient
+  m_Name: SkyGradient
   m_Shader: {fileID: -6465566751694194690, guid: 92ea658a8c633bf478da60fd5735fbad, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -41,6 +41,6 @@ Material:
     - _MainTex: 0
     - _mainTex: 0
     m_Colors:
-    - _BottomColor: {r: 0.20496382, g: 0.16892624, b: 0.042794645, a: 0}
-    - _TopColor: {r: 0.69411767, g: 0.57188237, b: 0.41568628, a: 0}
+    - _BottomColor: {r: 0.01704305, g: 0.019, b: 0.016321, a: 0}
+    - _TopColor: {r: 0.6431373, g: 0.562772, b: 0.3529412, a: 0}
   m_BuildTextureStacks: []
