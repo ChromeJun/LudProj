@@ -641,7 +641,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "supply crates were lost. \n\nWithout power supply and food,\n\nYour ship
     gradually powered down,\n\nand your crew succumed slowly and quietly \n\ninto
-    the darkness.\n\n\n\n\n\n\ncorporate will send a body retrieval unit soon."
+    the darkness."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cba3393ad18a8b34c986717091246dc3, type: 2}
   m_sharedMaterial: {fileID: -1100097754928211718, guid: cba3393ad18a8b34c986717091246dc3, type: 2}
