@@ -13,3 +13,10 @@ public enum Direction
     Up,
     Down
 }
+
+public enum DeathType
+{
+    Cargo,
+    Lava,
+    Debris
+}
