@@ -58,13 +58,21 @@ public class BlowingBeam : MonoBehaviour
         {
             yield return null;
 
-            Vector3 cursorWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 directionToCursor = cursorWorldPosition - transform.position;
-            if (directionToCursor.sqrMagnitude < Mathf.Epsilon) continue;
-            float angle = Mathf.Atan2(directionToCursor.y, directionToCursor.x) * Mathf.Rad2Deg;
+            // Get mouse position in world space
+            Vector3 mousePosition = Input.mousePosition;
+            mousePosition.z = -Camera.main.transform.position.z;
+            Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
-            // Apply the rotation to the object
-            transform.rotation = Quaternion.AngleAxis(angle + 90.0f, Vector3.forward);
+            // Make sure the object and mouse are at the same Z coordinate
+            mouseWorldPosition.z = transform.position.z;
+
+            // Calculate rotation to face the mouse
+            Vector3 directionToMouse = mouseWorldPosition - transform.position;
+            float angle = Mathf.Atan2(directionToMouse.y, directionToMouse.x) * Mathf.Rad2Deg;
+            Quaternion targetRotation = Quaternion.Euler(0.0f, 0.0f, angle + 90.0f);
+
+            // Rotate the object towards the mouse
+            transform.rotation = targetRotation;
         }
     }
 

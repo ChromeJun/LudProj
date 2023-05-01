@@ -4,9 +4,61 @@ using UnityEngine;
 
 public class LandingPoint : MonoBehaviour
 {
+    [SerializeField] int requiredCargoCount = 1;
+    [SerializeField] float transitionTriggerDelay = 0.2f;
+    [SerializeField] string sceneToLoadUponComplete = null;
+
+    public bool isPlayerDocked { get; private set; } = false;
+
+    Coroutine dockCheckRoutine = null;
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
+    IEnumerator DockCheckRoutine(Rigidbody rgBody)
+    {
+        float timer = 0.0f;
+
+        while (true)
+        {
+            if (rgBody.velocity.x < 0.1f && rgBody.velocity.x > -0.1f &&
+                rgBody.velocity.y < 0.1f && rgBody.velocity.y > -0.1f)
+            {
+                timer += Time.deltaTime;
+            }
+            else timer = 0.0f;
+
+            if (timer >= transitionTriggerDelay) break;
+
+            yield return null;
+        }
+
+        isPlayerDocked = true;
+        SceneTransitioner.StartTransitionToNextScene(sceneToLoadUponComplete);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        PlayerController playerController = other.GetComponent<PlayerController>();
+        if (isPlayerDocked) return;
+
+        PlayerController playerController = other.attachedRigidbody.GetComponent<PlayerController>();
         if (playerController == null) return;
+
+        if (playerController.CarryingCargoCount < requiredCargoCount) return;
+
+        if (dockCheckRoutine != null) StopCoroutine(dockCheckRoutine);
+        dockCheckRoutine = StartCoroutine(DockCheckRoutine(playerController.GetComponent<Rigidbody>()));
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (isPlayerDocked) return;
+
+        PlayerController playerController = other.attachedRigidbody.GetComponent<PlayerController>();
+        if (playerController == null) return;
+
+        if (dockCheckRoutine != null) StopCoroutine(dockCheckRoutine);
     }
 }

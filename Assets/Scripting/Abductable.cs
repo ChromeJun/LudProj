@@ -55,6 +55,7 @@ public class Abductable : MonoBehaviour
 
     public virtual void StopFalling()
     {
+        rgBody.isKinematic = false;
         StartSuckPos = transform.position;
         rgBody.useGravity = false;
         IsFalling = false;

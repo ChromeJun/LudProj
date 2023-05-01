@@ -7,6 +7,8 @@ public class CameraController : MonoBehaviour
     [ContextMenuItem("Display Borders", "DisplayBorders")]
 
     [Header("BoundarySettings")]
+    [SerializeField] float objectDepthVertical = 0.45f;
+    [SerializeField] float objectDepthHorizontal = 1.0f;
     [SerializeField] Vector2 startTrackOffsets = new Vector2(6.0f, 10.0f);
     [SerializeField] Vector2 stopTrackOffsets = new Vector2(9.0f, 10.0f);
     [SerializeField] Vector2 stickTrackOffsets = new Vector2(1.0f, 1.0f);
@@ -37,6 +39,11 @@ public class CameraController : MonoBehaviour
 
     WaitForFixedUpdate fixedUpdate = new WaitForFixedUpdate();
 
+    public Vector3 TopEdge { get; private set; } = Vector3.zero;
+    public Vector3 RightEdge { get; private set; } = Vector3.zero;
+    public Vector3 BottomEdge { get; private set; } = Vector3.zero;
+    public Vector3 LeftEdge { get; private set; } = Vector3.zero;
+
     private void Awake()
     {
         cam = GetComponent<Camera>();
@@ -55,33 +62,59 @@ public class CameraController : MonoBehaviour
         StopAllCoroutines();
     }
 
+    void PlaceObjectsAtEdges()
+    {
+        
+    }
+
+    private void CalculateScreenEdges()
+    {
+        float aspectRatio = cam.aspect;
+        float fov = cam.fieldOfView;
+        float halfFovRad = Mathf.Deg2Rad * fov * 0.5f;
+        float distanceFromCameraVertical = objectDepthVertical / Mathf.Tan(halfFovRad);
+        float distanceFromCameraHorizontal = objectDepthHorizontal / Mathf.Tan(halfFovRad);
+        Vector3 cameraPosition = cam.transform.position;
+
+        // Top edge
+        TopEdge = cameraPosition + cam.transform.forward * distanceFromCameraVertical + cam.transform.up * distanceFromCameraVertical * aspectRatio;
+
+        // Bottom edge
+        BottomEdge = cameraPosition + cam.transform.forward * distanceFromCameraVertical - cam.transform.up * distanceFromCameraVertical * aspectRatio;
+
+        // Left edge
+        LeftEdge = cameraPosition + cam.transform.forward * distanceFromCameraHorizontal - cam.transform.right * distanceFromCameraHorizontal;
+
+        // Right edge
+        RightEdge = cameraPosition + cam.transform.forward * distanceFromCameraHorizontal + cam.transform.right * distanceFromCameraHorizontal;
+    }
+
     void DisplayBorders()
     {
         cam = GetComponent<Camera>();
+        playerController = FindObjectOfType<PlayerController>();
 
-        Vector3 topLeft = cam.ViewportToWorldPoint(new Vector3(0, 1, cam.nearClipPlane));
-        Vector3 topRight = cam.ViewportToWorldPoint(new Vector3(1, 1, cam.nearClipPlane));
-        Vector3 bottomLeft = cam.ViewportToWorldPoint(new Vector3(0, 0, cam.nearClipPlane));
+        CalculateScreenEdges();
 
-        rightMarkers[0].position = new Vector3(topRight.x, cam.transform.position.y, topRight.z + 1.0f);
-        rightMarkers[1].position = new Vector3(topRight.x - startTrackOffsets.x, cam.transform.position.y, topRight.z + 1.0f);
-        rightMarkers[2].position = new Vector3(topRight.x - stopTrackOffsets.x, cam.transform.position.y, topRight.z + 1.0f);
-        rightMarkers[3].position = new Vector3(topRight.x - stickTrackOffsets.x, cam.transform.position.y, topRight.z + 1.0f);
+        rightMarkers[0].position = new Vector3(RightEdge.x, cam.transform.position.y, playerController.transform.position.z);
+        rightMarkers[1].position = new Vector3(RightEdge.x - startTrackOffsets.x, cam.transform.position.y, playerController.transform.position.z);
+        rightMarkers[2].position = new Vector3(RightEdge.x - stopTrackOffsets.x, cam.transform.position.y, playerController.transform.position.z);
+        rightMarkers[3].position = new Vector3(RightEdge.x - stickTrackOffsets.x, cam.transform.position.y, playerController.transform.position.z);
 
-        leftMarkers[0].position = new Vector3(topLeft.x, cam.transform.position.y, topLeft.z + 1.0f);
-        leftMarkers[1].position = new Vector3(topLeft.x + startTrackOffsets.x, cam.transform.position.y, topLeft.z + 1.0f);
-        leftMarkers[2].position = new Vector3(topLeft.x + stopTrackOffsets.x, cam.transform.position.y, topLeft.z + 1.0f);
-        leftMarkers[3].position = new Vector3(topLeft.x + stickTrackOffsets.x, cam.transform.position.y, topLeft.z + 1.0f);
+        leftMarkers[0].position = new Vector3(LeftEdge.x, cam.transform.position.y, playerController.transform.position.z);
+        leftMarkers[1].position = new Vector3(LeftEdge.x + startTrackOffsets.x, cam.transform.position.y, playerController.transform.position.z);
+        leftMarkers[2].position = new Vector3(LeftEdge.x + stopTrackOffsets.x, cam.transform.position.y, playerController.transform.position.z);
+        leftMarkers[3].position = new Vector3(LeftEdge.x + stickTrackOffsets.x, cam.transform.position.y, playerController.transform.position.z);
 
-        topMarkers[0].position = new Vector3(cam.transform.position.x, topLeft.y, topRight.z + 1.0f);
-        topMarkers[1].position = new Vector3(cam.transform.position.x, topLeft.y - startTrackOffsets.y, topRight.z + 1.0f);
-        topMarkers[2].position = new Vector3(cam.transform.position.x, topLeft.y - stopTrackOffsets.y, topRight.z + 1.0f);
-        topMarkers[3].position = new Vector3(cam.transform.position.x, topLeft.y - stickTrackOffsets.y, topRight.z + 1.0f);
+        topMarkers[0].position = new Vector3(cam.transform.position.x, TopEdge.y, playerController.transform.position.z);
+        topMarkers[1].position = new Vector3(cam.transform.position.x, TopEdge.y - startTrackOffsets.y, playerController.transform.position.z);
+        topMarkers[2].position = new Vector3(cam.transform.position.x, TopEdge.y - stopTrackOffsets.y, playerController.transform.position.z);
+        topMarkers[3].position = new Vector3(cam.transform.position.x, TopEdge.y - stickTrackOffsets.y, playerController.transform.position.z);
 
-        bottomMarkers[0].position = new Vector3(cam.transform.position.x, bottomLeft.y, topRight.z + 1.0f);
-        bottomMarkers[1].position = new Vector3(cam.transform.position.x, bottomLeft.y + startTrackOffsets.y, topRight.z + 1.0f);
-        bottomMarkers[2].position = new Vector3(cam.transform.position.x, bottomLeft.y + stopTrackOffsets.y, topRight.z + 1.0f);
-        bottomMarkers[3].position = new Vector3(cam.transform.position.x, bottomLeft.y + stickTrackOffsets.y, topRight.z + 1.0f);
+        bottomMarkers[0].position = new Vector3(cam.transform.position.x, BottomEdge.y, playerController.transform.position.z);
+        bottomMarkers[1].position = new Vector3(cam.transform.position.x, BottomEdge.y + startTrackOffsets.y, playerController.transform.position.z);
+        bottomMarkers[2].position = new Vector3(cam.transform.position.x, BottomEdge.y + stopTrackOffsets.y, playerController.transform.position.z);
+        bottomMarkers[3].position = new Vector3(cam.transform.position.x, BottomEdge.y + stickTrackOffsets.y, playerController.transform.position.z);
     }
 
     void StartFollowingPlayer()
@@ -122,12 +155,10 @@ public class CameraController : MonoBehaviour
         {
             yield return null;
 
-            Vector3 topLeft = cam.ViewportToWorldPoint(new Vector3(0, 1, cam.nearClipPlane));
-            Vector3 topRight = cam.ViewportToWorldPoint(new Vector3(1, 1, cam.nearClipPlane));
-            Vector3 bottomLeft = cam.ViewportToWorldPoint(new Vector3(0, 0, cam.nearClipPlane));
+            CalculateScreenEdges();
 
-            if (playerController.transform.position.x > topRight.x - startTrackOffsets.x || playerController.transform.position.x < topLeft.x + startTrackOffsets.x ||
-                playerController.transform.position.y > topLeft.y - startTrackOffsets.y || playerController.transform.position.y < bottomLeft.y + startTrackOffsets.y)
+            if (playerController.transform.position.x > RightEdge.x - startTrackOffsets.x || playerController.transform.position.x < LeftEdge.x + startTrackOffsets.x ||
+                playerController.transform.position.y > TopEdge.y - startTrackOffsets.y || playerController.transform.position.y < BottomEdge.y + startTrackOffsets.y)
             {
                 /*
                 if (cam.transform.position.x - 0.5f <= horizontalLimits.x && playerController.transform.position.x < topLeft.x + startTrackOffsets.x)
@@ -163,23 +194,21 @@ public class CameraController : MonoBehaviour
 
         while (true)
         {
-            Vector3 topLeft = cam.ViewportToWorldPoint(new Vector3(0, 1, cam.nearClipPlane));
-            Vector3 topRight = cam.ViewportToWorldPoint(new Vector3(1, 1, cam.nearClipPlane));
-            Vector3 bottomLeft = cam.ViewportToWorldPoint(new Vector3(0, 0, cam.nearClipPlane));
+            DisplayBorders();
 
-            if (playerController.transform.position.x < topLeft.x + startTrackOffsets.x && !isMovingLeft) isMovingLeft = true;
-            if (playerController.transform.position.x > topRight.x - startTrackOffsets.x && !IsMovingRight) IsMovingRight = true;
-            if (playerController.transform.position.y < bottomLeft.y + startTrackOffsets.y && !IsMovingDown) IsMovingDown = true;
-            if (playerController.transform.position.y > topLeft.y - startTrackOffsets.y && !IsMovingUp) IsMovingUp = true;
+            if (playerController.transform.position.x < LeftEdge.x + startTrackOffsets.x && !isMovingLeft) isMovingLeft = true;
+            if (playerController.transform.position.x > RightEdge.x - startTrackOffsets.x && !IsMovingRight) IsMovingRight = true;
+            if (playerController.transform.position.y < BottomEdge.y + startTrackOffsets.y && !IsMovingDown) IsMovingDown = true;
+            if (playerController.transform.position.y > TopEdge.y - startTrackOffsets.y && !IsMovingUp) IsMovingUp = true;
 
             if (isMovingLeft)
             {
-                if (playerController.transform.position.x <= topLeft.x + stickTrackOffsets.x)
+                if (playerController.transform.position.x <= LeftEdge.x + stickTrackOffsets.x)
                     rgBody.AddForce(Vector3.left * stickHorizontalForce);
                 else
                     rgBody.AddForce(Vector3.left * horizontalForce);
 
-                if (playerController.transform.position.x >= topLeft.x + stopTrackOffsets.x)
+                if (playerController.transform.position.x >= LeftEdge.x + stopTrackOffsets.x)
                 {
                     rgBody.AddForce(Vector3.right * reverseHorizontalForce);
                     isMovingLeft = false;
@@ -188,12 +217,12 @@ public class CameraController : MonoBehaviour
             
             if (IsMovingRight)
             {
-                if (playerController.transform.position.x >= topRight.x - stickTrackOffsets.x)
+                if (playerController.transform.position.x >= RightEdge.x - stickTrackOffsets.x)
                     rgBody.AddForce(Vector3.right * stickHorizontalForce);
                 else
                     rgBody.AddForce(Vector3.right * horizontalForce);
 
-                if (playerController.transform.position.x <= topRight.x - stopTrackOffsets.x)
+                if (playerController.transform.position.x <= RightEdge.x - stopTrackOffsets.x)
                 {
                     rgBody.AddForce(Vector3.left * reverseHorizontalForce);
                     IsMovingRight = false;
@@ -202,12 +231,12 @@ public class CameraController : MonoBehaviour
 
             if (IsMovingDown)
             {
-                if (playerController.transform.position.y <= bottomLeft.y + stickTrackOffsets.y)
+                if (playerController.transform.position.y <= BottomEdge.y + stickTrackOffsets.y)
                     rgBody.AddForce(Vector3.down * stickVerticalForce);
                 else
                     rgBody.AddForce(Vector3.down * verticalForce);
 
-                if (playerController.transform.position.y >= bottomLeft.y + stopTrackOffsets.y)
+                if (playerController.transform.position.y >= BottomEdge.y + stopTrackOffsets.y)
                 {
                     rgBody.AddForce(Vector3.up * reverseVerticalForce);
                     IsMovingDown = false;
@@ -216,12 +245,12 @@ public class CameraController : MonoBehaviour
 
             if (IsMovingUp)
             {
-                if (playerController.transform.position.y >= topRight.y - stickTrackOffsets.y)
+                if (playerController.transform.position.y >= TopEdge.y - stickTrackOffsets.y)
                     rgBody.AddForce(Vector3.up * stickVerticalForce);
                 else
                     rgBody.AddForce(Vector3.up * verticalForce);
 
-                if (playerController.transform.position.y <= topRight.y - stopTrackOffsets.y)
+                if (playerController.transform.position.y <= TopEdge.y - stopTrackOffsets.y)
                 {
                     rgBody.AddForce(Vector3.down * reverseVerticalForce);
                     IsMovingUp = false;
