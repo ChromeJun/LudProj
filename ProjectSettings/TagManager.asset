@@ -12,11 +12,11 @@ TagManager:
   - 
   - Water
   - UI
-  - PostProcessingTest
-  - 
-  - 
-  - 
-  - 
+  - PostProcessing
+  - BG2-Env
+  - BG1-Env
+  - Play
+  - FG1-Env
   - 
   - 
   - 
@@ -41,4 +41,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: FX
+    uniqueID: 846930133
     locked: 0
