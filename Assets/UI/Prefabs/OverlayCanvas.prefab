@@ -11,13 +11,14 @@ GameObject:
   - component: {fileID: 4398464762198503904}
   - component: {fileID: 4398464762198503910}
   - component: {fileID: 4398464762198503911}
+  - component: {fileID: 3079339581534417375}
   m_Layer: 0
   m_Name: LavaDeathCard 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4398464762198503904
 RectTransform:
   m_ObjectHideFlags: 0
@@ -33,10 +34,10 @@ RectTransform:
   m_Father: {fileID: 4398464762979070165}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1359.295, y: 560.284}
+  m_SizeDelta: {x: -558.70496, y: -519.716}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4398464762198503910
 CanvasRenderer:
@@ -140,6 +141,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!225 &3079339581534417375
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4398464762198503905}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &4398464762410532314
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,13 +164,14 @@ GameObject:
   - component: {fileID: 4398464762410532313}
   - component: {fileID: 4398464762410532319}
   - component: {fileID: 4398464762410532312}
+  - component: {fileID: 8530065452054298672}
   m_Layer: 0
   m_Name: LavaDeathCard 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4398464762410532313
 RectTransform:
   m_ObjectHideFlags: 0
@@ -173,10 +187,10 @@ RectTransform:
   m_Father: {fileID: 4398464762979070165}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1359.295, y: 560.284}
+  m_SizeDelta: {x: -558.70496, y: -519.716}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4398464762410532319
 CanvasRenderer:
@@ -278,6 +292,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!225 &8530065452054298672
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4398464762410532314}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &4398464762429298854
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,10 +338,10 @@ RectTransform:
   m_Father: {fileID: 5102867813335134479}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 2173.8916, y: 1222.9988}
-  m_SizeDelta: {x: 1359.295, y: 560.284}
+  m_SizeDelta: {x: -558.70496, y: -519.716}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4398464762429298858
 CanvasRenderer:
@@ -445,13 +471,14 @@ GameObject:
   - component: {fileID: 4398464762665732658}
   - component: {fileID: 4398464762665732656}
   - component: {fileID: 4398464762665732657}
+  - component: {fileID: 5871917905176873856}
   m_Layer: 0
   m_Name: DebrisCrushCard 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4398464762665732658
 RectTransform:
   m_ObjectHideFlags: 0
@@ -467,10 +494,10 @@ RectTransform:
   m_Father: {fileID: 4398464762979070165}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1359.295, y: 560.284}
+  m_SizeDelta: {x: -558.70496, y: -519.716}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4398464762665732656
 CanvasRenderer:
@@ -573,6 +600,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!225 &5871917905176873856
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4398464762665732659}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &4398464762748830997
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,13 +623,14 @@ GameObject:
   - component: {fileID: 4398464762748830996}
   - component: {fileID: 4398464762748831002}
   - component: {fileID: 4398464762748831003}
+  - component: {fileID: 5059274819507972763}
   m_Layer: 0
   m_Name: CargoDeathCard 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4398464762748830996
 RectTransform:
   m_ObjectHideFlags: 0
@@ -606,10 +646,10 @@ RectTransform:
   m_Father: {fileID: 4398464762979070165}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1359.295, y: 560.284}
+  m_SizeDelta: {x: -558.70496, y: -519.716}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4398464762748831002
 CanvasRenderer:
@@ -710,6 +750,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!225 &5059274819507972763
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4398464762748830997}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &4398464762979070166
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,13 +856,14 @@ GameObject:
   - component: {fileID: 4398464762993317649}
   - component: {fileID: 4398464762993317655}
   - component: {fileID: 4398464762993317648}
+  - component: {fileID: 4446050392518937088}
   m_Layer: 0
   m_Name: DebrisCrushCard 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4398464762993317649
 RectTransform:
   m_ObjectHideFlags: 0
@@ -826,10 +879,10 @@ RectTransform:
   m_Father: {fileID: 4398464762979070165}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1359.295, y: 560.284}
+  m_SizeDelta: {x: -558.70496, y: -519.716}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4398464762993317655
 CanvasRenderer:
@@ -931,6 +984,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!225 &4446050392518937088
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4398464762993317650}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &4398464763185159232
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,10 +1030,10 @@ RectTransform:
   m_Father: {fileID: 4398464762979070165}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1359.295, y: 560.284}
+  m_SizeDelta: {x: -558.70496, y: -519.716}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4398464763185159237
 CanvasRenderer:
@@ -1081,8 +1146,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tmpProText: {fileID: 4398464763185159238}
   delayBeforeStart: 0
-  timeBtwChars: 3.01
-  leadingChar: 
+  timeBtwChars: 0.02
+  leadingChar: <
   leadingCharBeforeDelay: 0
   cargoDeadCards:
   - {fileID: 4398464762748831003}
@@ -1104,13 +1169,14 @@ GameObject:
   - component: {fileID: 4398464763531281976}
   - component: {fileID: 4398464763531281982}
   - component: {fileID: 4398464763531281983}
+  - component: {fileID: 2423769984260701653}
   m_Layer: 0
   m_Name: CargoDeathCard 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4398464763531281976
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1126,10 +1192,10 @@ RectTransform:
   m_Father: {fileID: 4398464762979070165}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1359.295, y: 560.284}
+  m_SizeDelta: {x: -558.70496, y: -519.716}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4398464763531281982
 CanvasRenderer:
@@ -1231,6 +1297,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!225 &2423769984260701653
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4398464763531281977}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5102867813335134485
 GameObject:
   m_ObjectHideFlags: 0
@@ -1244,8 +1322,9 @@ GameObject:
   - component: {fileID: 5102867813335134473}
   - component: {fileID: 5102867813335134474}
   - component: {fileID: 5102867813335134475}
-  - component: {fileID: 5102867813335134484}
   - component: {fileID: 5102867813335134491}
+  - component: {fileID: 3638608790251086158}
+  - component: {fileID: 5619735387369642772}
   m_Layer: 0
   m_Name: OverlayCanvas
   m_TagString: Untagged
@@ -1327,9 +1406,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5102867813335134485}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &5102867813335134475
 MonoBehaviour:
@@ -1348,22 +1427,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!111 &5102867813335134484
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5102867813335134485}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 6eef4f5f6b9561a4f8731345832bf2e6, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 6eef4f5f6b9561a4f8731345832bf2e6, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &5102867813335134491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1377,3 +1440,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typewriter: {fileID: 4398464763185159236}
+--- !u!95 &3638608790251086158
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5102867813335134485}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4ab4be17dcadac94b9adfb783337d192, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5619735387369642772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5102867813335134485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e69214ace80a64b96c7f2a534ffc82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasGroup: {fileID: 5102867813335134474}
+  anim: {fileID: 3638608790251086158}
+  typewriter: {fileID: 4398464763185159236}
+  transitionDelay: 5

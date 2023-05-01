@@ -55,7 +55,7 @@ public class LandingPoint : MonoBehaviour
     {
         if (isPlayerDocked) return;
 
-        PlayerController playerController = other.attachedRigidbody.GetComponent<PlayerController>();
+        PlayerController playerController = other.GetComponentInParent<PlayerController>();
         if (playerController == null) return;
 
         if (playerController.CarryingCargoCount < requiredCargoCount) return;
@@ -68,7 +68,7 @@ public class LandingPoint : MonoBehaviour
     {
         if (isPlayerDocked) return;
 
-        PlayerController playerController = other.attachedRigidbody.GetComponent<PlayerController>();
+        PlayerController playerController = other.GetComponentInParent<PlayerController>();
         if (playerController == null) return;
 
         if (dockCheckRoutine != null) StopCoroutine(dockCheckRoutine);
