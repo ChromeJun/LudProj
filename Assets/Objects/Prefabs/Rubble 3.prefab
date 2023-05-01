@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1254586415749072757}
   - component: {fileID: 2566880882145014270}
   - component: {fileID: 2319923271810831408}
+  - component: {fileID: -3019041731609056712}
   m_Layer: 7
   m_Name: Rubble 3
   m_TagString: Untagged
@@ -115,3 +116,17 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 9002646054217661548, guid: f0010e576c4405e47a1ba79971898c45, type: 3}
+--- !u!114 &-3019041731609056712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335883336451969632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33fedf079604aa42a1848fa25d4c05d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abductType: 0
+  sizeCapacity: 1

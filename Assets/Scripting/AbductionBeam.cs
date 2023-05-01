@@ -5,6 +5,8 @@ using UnityEngine;
 public class AbductionBeam : MonoBehaviour
 {
     [SerializeField] int suckMaxCapacity = 5;
+    [SerializeField] PlayerController playerController = null;
+    [SerializeField] Collider coll = null;
     [SerializeField] GameObject[] abductionEffects = null;
     [SerializeField] Transform rayVisualRoot = null;
 
@@ -13,6 +15,10 @@ public class AbductionBeam : MonoBehaviour
     [SerializeField] float suckHoverDist = 2.25f;
     [SerializeField] float suckHoverOffsetAllowance = 0.5f;
     [SerializeField] float rotationForce = 10.0f;
+
+    [Header("Cargo Pickup Settings")]
+    [SerializeField] float pickedUpDist = 1.0f;
+    [SerializeField] float shrinkMinPercentage = 0.1f;
 
     List<Abductable> abductables = new List<Abductable>();
     List<Direction> suckAbductable = new List<Direction>();
@@ -61,6 +67,54 @@ public class AbductionBeam : MonoBehaviour
         {
             for (int i = 0; i < abductables.Count; i++)
             {
+                abductables[i].RgBody.AddRelativeTorque(abductRotations[i] * rotationForce);
+
+                if (abductables[i].AbductType == AbductType.Cargo)
+                {
+                    float startDist = Vector3.Distance(new Vector3(abductables[i].StartSuckPos.x, abductables[i].StartSuckPos.y, 0.0f),
+                                         new Vector3(transform.position.x, transform.position.y, 0.0f));
+
+                    float currDist = Vector3.Distance(new Vector3(abductables[i].transform.position.x, abductables[i].transform.position.y, 0.0f),
+                                         new Vector3(transform.position.x, transform.position.y, 0.0f));
+
+                    float clampedCurrDist = Mathf.Clamp(currDist, 0.0f, startDist);
+
+                    Vector3 directionToTarget = transform.position - abductables[i].transform.position;
+                    directionToTarget.Normalize();
+
+                    float t = (clampedCurrDist - pickedUpDist) / (startDist - pickedUpDist);
+                    float sizeValueX = (abductables[i].OriginalScale.x * shrinkMinPercentage) + t * (abductables[i].OriginalScale.x - (abductables[i].OriginalScale.x * shrinkMinPercentage));
+                    float sizeValueY = (abductables[i].OriginalScale.y * shrinkMinPercentage) + t * (abductables[i].OriginalScale.y - (abductables[i].OriginalScale.y * shrinkMinPercentage));
+                    float sizeValueZ = (abductables[i].OriginalScale.z * shrinkMinPercentage) + t * (abductables[i].OriginalScale.z - (abductables[i].OriginalScale.z * shrinkMinPercentage));
+
+                    Vector3 newScale = new Vector3(sizeValueX, sizeValueY, sizeValueZ);
+
+                    abductables[i].transform.localScale = newScale;
+
+                    if (Vector3.Distance(new Vector3(abductables[i].transform.position.x, abductables[i].transform.position.y, 0.0f),
+                                         new Vector3(transform.position.x, transform.position.y, 0.0f)) > pickedUpDist)
+                    {
+                        abductables[i].AddForce(directionToTarget, suckUpForce);
+                    }
+                    else
+                    {
+                        int index = i;
+
+                        Abductable removeAbductable = abductables[i];
+
+                        abductables.RemoveAt(index);
+                        suckAbductable.RemoveAt(index);
+                        abductRotations.RemoveAt(index);
+                        abductRelativePos.RemoveAt(index);
+
+                        playerController.IncreaseCargoCount();
+
+                        removeAbductable.Die();
+                    }
+
+                    continue;
+                }
+
                 if (suckAbductable[i] == Direction.Up)
                 {
                     Vector3 directionToTarget = transform.position - abductables[i].transform.position;
@@ -111,8 +165,6 @@ public class AbductionBeam : MonoBehaviour
                         suckAbductable[i] = Direction.Down;
                     }
                 }
-
-                abductables[i].RgBody.AddRelativeTorque(abductRotations[i] * rotationForce);
             }
 
             yield return fixedUpdate;
@@ -153,7 +205,7 @@ public class AbductionBeam : MonoBehaviour
         if (abductables.Contains(foundAbductable)) return;
         if (foundAbductable.SizeCapacity + CurrCarryingCapacity > suckMaxCapacity) return;
 
-        if (foundAbductable.IsFalling) foundAbductable.StopFalling();
+        foundAbductable.StopFalling();
 
         CurrCarryingCapacity += foundAbductable.SizeCapacity;
 

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1488707466142046314}
   - component: {fileID: 4739666958769628737}
   - component: {fileID: 7275881531411465801}
+  - component: {fileID: 3690819025637075532}
   m_Layer: 0
   m_Name: Crate 1
   m_TagString: Untagged
@@ -117,3 +118,17 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3581658508463639989, guid: d40a1f1f18317564e946a8dda3811bde, type: 3}
+--- !u!114 &3690819025637075532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180511683694858271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33fedf079604aa42a1848fa25d4c05d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abductType: 1
+  sizeCapacity: 1

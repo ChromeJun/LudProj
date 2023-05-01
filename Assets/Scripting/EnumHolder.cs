@@ -1,8 +1,8 @@
 
 public enum AbductType
 {
-    Human,
-    Cow
+    Debris,
+    Cargo
 }
 
 public enum Direction

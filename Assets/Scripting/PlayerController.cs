@@ -28,6 +28,13 @@ public class PlayerController : MonoBehaviour
     [Header("Tilt Settings")]
     [SerializeField] float maxTiltAngle = 50.0f;
     [SerializeField] float velocityToTiltMultiplier = 5.0f;
+    [SerializeField] float upwardTiltMultiplier = 5.0f;
+    [SerializeField] float downwardTiltMultiplier = 5.0f;
+
+    [Header("Turn Settings")]
+    [SerializeField] float turnForceMultiplier = 3.0f;
+    [SerializeField] float turnAllowanceOffset = 5.0f;
+    [SerializeField] float turnBalanceMultiplier = 5.0f;
 
     [Header("Misc Settings")]
     [SerializeField] float brakeForce = 4.0f;
@@ -35,6 +42,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float maxHoverVelocity = -10.0f;
 
     public Vector3 Velocity { get { return rgBody.velocity; } }
+    public int CarryingCargoCount { get; private set; } = 0;
 
     Coroutine inputRoutine = null;
     Coroutine velocityCheckRoutine = null;
@@ -42,6 +50,7 @@ public class PlayerController : MonoBehaviour
     Coroutine brakeRoutine = null;
     Coroutine tiltRoutine = null;
     Coroutine slowDownRoutine = null;
+    Coroutine turningRoutine = null;
 
     public bool IsMovingLeft { get; private set; } = false;
     public bool IsMovingRight { get; private set; } = false;
@@ -57,6 +66,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
+        CarryingCargoCount = 0;
+
         SlowDownDirection = Direction.Still;
 
         if (inputRoutine != null) StopCoroutine(inputRoutine);
@@ -74,6 +85,8 @@ public class PlayerController : MonoBehaviour
         StopAllCoroutines();
     }
 
+    public void IncreaseCargoCount() { CarryingCargoCount += 1; }
+
     IEnumerator VelocityCheckRoutine()
     {
         while (true)
@@ -81,6 +94,86 @@ public class PlayerController : MonoBehaviour
             rgBody.velocity = new Vector3(Mathf.Clamp(rgBody.velocity.x, -maxHorizontalVelocity, maxHorizontalVelocity),
                                             Mathf.Clamp(rgBody.velocity.y, maxVerticalVelocity.x, maxVerticalVelocity.y), 0.0f);
             yield return null;
+        }
+    }
+
+    IEnumerator TurningRoutine(Direction faceDirection)
+    {
+        bool breakLoop = false;
+        float turnValue = modelRoot.localEulerAngles.y > 180.0f + turnAllowanceOffset ? modelRoot.localEulerAngles.y - 360.0f : modelRoot.localEulerAngles.y;
+
+        switch (faceDirection)
+        {
+            case Direction.Left: if (modelRoot.localEulerAngles.y == 180.0f) breakLoop = true; break;
+            case Direction.Right: if (modelRoot.localEulerAngles.y == 0.0f) breakLoop = true; break;
+        }
+
+        while (true)
+        {
+            if (breakLoop) break;
+
+            switch (faceDirection)
+            {
+                case Direction.Left:
+                    if (turnValue >= 180.0f + turnAllowanceOffset) breakLoop = true;
+                    else
+                    {
+                        turnValue = turnValue + Mathf.Abs(rgBody.velocity.x) * turnForceMultiplier * Time.deltaTime;
+                        modelRoot.localEulerAngles = new Vector3(0.0f, Mathf.Clamp(turnValue, 0.0f - turnAllowanceOffset, 180.0f + turnAllowanceOffset), modelRoot.localEulerAngles.z);
+                    }
+
+                    break;
+
+                case Direction.Right:
+                    if (turnValue <= 0.0f - turnAllowanceOffset) breakLoop = true;
+                    else
+                    {
+                        turnValue = turnValue - Mathf.Abs(rgBody.velocity.x) * turnForceMultiplier * Time.deltaTime;
+                        modelRoot.localEulerAngles = new Vector3(0.0f, Mathf.Clamp(turnValue, 0.0f - turnAllowanceOffset, 180.0f + turnAllowanceOffset), modelRoot.localEulerAngles.z);
+                    }
+
+                    break;
+            }
+
+            yield return fixedUpdate;
+        }
+
+        breakLoop = false;
+
+        while (true)
+        {
+            switch (faceDirection)
+            {
+                case Direction.Left:
+                    if (turnValue <= 180.0f) breakLoop = true;
+                    else
+                    {
+                        turnValue = turnValue - Mathf.Abs(rgBody.velocity.x) * turnBalanceMultiplier * Time.deltaTime;
+                        modelRoot.localEulerAngles = new Vector3(0.0f, Mathf.Clamp(turnValue, 0.0f - turnAllowanceOffset, 180.0f + turnAllowanceOffset), modelRoot.localEulerAngles.z);
+                    }
+
+                    break;
+
+                case Direction.Right:
+                    if (turnValue >= 0.0f) breakLoop = true;
+                    else
+                    {
+                        turnValue = turnValue + Mathf.Abs(rgBody.velocity.x) * turnBalanceMultiplier * Time.deltaTime;
+                        modelRoot.localEulerAngles = new Vector3(0.0f, Mathf.Clamp(turnValue, 0.0f - turnAllowanceOffset, 180.0f + turnAllowanceOffset), modelRoot.localEulerAngles.z);
+                    }
+
+                    break;
+            }
+
+            yield return fixedUpdate;
+
+            if (breakLoop) break;
+        }
+
+        switch (faceDirection)
+        {
+            case Direction.Left: modelRoot.localEulerAngles = new Vector3(0.0f, 180.0f, modelRoot.localEulerAngles.z); break;
+            case Direction.Right: modelRoot.localEulerAngles = new Vector3(0.0f, 0.0f, modelRoot.localEulerAngles.z); break;
         }
     }
 
@@ -133,9 +226,11 @@ public class PlayerController : MonoBehaviour
         while (true)
         {
             float targetAngle = Mathf.Abs(rgBody.velocity.x) * velocityToTiltMultiplier;
-            targetAngle = (rgBody.velocity.x > 0.0f) ? -targetAngle : targetAngle;
+            targetAngle = -targetAngle;
 
-            modelRoot.eulerAngles = new Vector3(0.0f, 0.0f, Mathf.Clamp(targetAngle, -maxTiltAngle, maxTiltAngle));
+            targetAngle += rgBody.velocity.y > 0.0f ? (rgBody.velocity.y * upwardTiltMultiplier) : (rgBody.velocity.y * downwardTiltMultiplier);
+
+            modelRoot.eulerAngles = new Vector3(0.0f, modelRoot.eulerAngles.y, Mathf.Clamp(targetAngle, -maxTiltAngle, maxTiltAngle));
             yield return null;
         }
     }
@@ -225,6 +320,13 @@ public class PlayerController : MonoBehaviour
             }
 
             if (!PlayerInput.IsKeyArrayDown(PlayerInput.LeftMoveKeys, () => { 
+
+                if (!IsMovingLeft)
+                {
+                    if (turningRoutine != null) StopCoroutine(turningRoutine);
+                    turningRoutine = StartCoroutine(TurningRoutine(Direction.Left));
+                }
+
                 rgBody.AddForce(Vector3.left * horizontalForce);
                 IsMovingLeft = true;
                 if (slowDownRoutine != null) StopCoroutine(slowDownRoutine);
@@ -247,7 +349,14 @@ public class PlayerController : MonoBehaviour
 
             if (!IsMovingLeft)
             {
-                if (!PlayerInput.IsKeyArrayDown(PlayerInput.RightMoveKeys, () => { 
+                if (!PlayerInput.IsKeyArrayDown(PlayerInput.RightMoveKeys, () => {
+
+                    if (!IsMovingRight)
+                    {
+                        if (turningRoutine != null) StopCoroutine(turningRoutine);
+                        turningRoutine = StartCoroutine(TurningRoutine(Direction.Right));
+                    }
+
                     rgBody.AddForce(Vector3.right * horizontalForce); 
                     IsMovingRight = true;
                     if (slowDownRoutine != null) StopCoroutine(slowDownRoutine);
