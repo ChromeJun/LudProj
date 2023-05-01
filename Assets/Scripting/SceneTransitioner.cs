@@ -13,7 +13,8 @@ public class SceneTransitioner : MonoBehaviour
 
     public static SceneTransitioner Instance;
 
-    WaitForSeconds delay = new WaitForSeconds(0.36f);
+    WaitForSeconds interDelay = new WaitForSeconds(0.2f);
+    WaitForSeconds delay = new WaitForSeconds(0.6f);
 
     Coroutine transitionRoutine = null;
 
@@ -25,17 +26,17 @@ public class SceneTransitioner : MonoBehaviour
             return;
         }
 
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject.transform.parent.gameObject);
         Instance = this;
     }
 
-    void BeginTransitionToNextScene(string sceneName)
+    void BeginTransitionToNextScene(string sceneName, bool reallowPlayerInputs)
     {
         if (transitionRoutine != null) StopCoroutine(transitionRoutine);
-        transitionRoutine = StartCoroutine(TransitionRoutine(sceneName));
+        transitionRoutine = StartCoroutine(TransitionRoutine(sceneName, reallowPlayerInputs));
     }
 
-    IEnumerator TransitionRoutine(string sceneName)
+    IEnumerator TransitionRoutine(string sceneName, bool reallowPlayerInputs)
     {
         transitionAnimation.Play(TRANSITION_IN_ANIM);
 
@@ -44,14 +45,17 @@ public class SceneTransitioner : MonoBehaviour
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
 
         yield return operation;
+        yield return interDelay;
 
         transitionAnimation.Play(TRANSITION_OUT_ANIM);
 
         yield return delay;
+
+        if (reallowPlayerInputs) PlayerInput.ChangeControlsAllowedState(true);
     }
 
-    public static void StartTransitionToNextScene(string sceneName)
+    public static void StartTransitionToNextScene(string sceneName, bool reallowPlayerInputs = true)
     {
-        Instance.BeginTransitionToNextScene(sceneName);
+        Instance.BeginTransitionToNextScene(sceneName, reallowPlayerInputs);
     }
 }

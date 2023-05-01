@@ -7,10 +7,16 @@ public class LandingPoint : MonoBehaviour
     [SerializeField] int requiredCargoCount = 1;
     [SerializeField] float transitionTriggerDelay = 0.2f;
     [SerializeField] string sceneToLoadUponComplete = null;
+    [SerializeField] Transform dockRoot = null;
+    [SerializeField] Animator anim = null;
 
     public bool isPlayerDocked { get; private set; } = false;
 
     Coroutine dockCheckRoutine = null;
+
+    const string LANDED_ANIM = "Landed";
+
+    WaitForSeconds transitionDelay = new WaitForSeconds(4.4f);
 
     private void OnDisable()
     {
@@ -36,6 +42,12 @@ public class LandingPoint : MonoBehaviour
         }
 
         isPlayerDocked = true;
+        PlayerInput.ChangeControlsAllowedState(false);
+        anim.Play(LANDED_ANIM);
+        rgBody.transform.parent = dockRoot;
+
+        yield return transitionDelay;
+
         SceneTransitioner.StartTransitionToNextScene(sceneToLoadUponComplete);
     }
 

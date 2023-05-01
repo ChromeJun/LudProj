@@ -21,6 +21,8 @@ public class PlayerInput : MonoBehaviour
     public static KeyCode[] DownMoveKeys { get { return Instance.downMoveKeys; } }
     public static KeyCode[] BrakeKeys { get { return Instance.brakeKeys; } }
 
+    public static bool IsControlsAllowed { get; private set; }
+
     private void OnEnable()
     {
         if (Instance != null && Instance != this)
@@ -31,10 +33,16 @@ public class PlayerInput : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        IsControlsAllowed = true;
     }
+
+    public static void ChangeControlsAllowedState(bool allowed) { IsControlsAllowed = allowed; }
 
     public static bool IsKeyArrayDown(KeyCode[] key, Action OnKeyDown = null)
     {
+        if (!IsControlsAllowed) return false;
+
         for (int i = 0; i < key.Length; i++)
         {
             if (Input.GetKey(key[i]))
