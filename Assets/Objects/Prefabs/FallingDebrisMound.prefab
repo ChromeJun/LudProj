@@ -4922,7 +4922,7 @@ MeshCollider:
   m_GameObject: {fileID: 289346250014430823}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -5037,7 +5037,7 @@ MeshCollider:
   m_GameObject: {fileID: 2271505650500559734}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -5152,7 +5152,7 @@ MeshCollider:
   m_GameObject: {fileID: 5231098520251090616}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -5267,7 +5267,7 @@ MeshCollider:
   m_GameObject: {fileID: 6490420102526110264}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -5423,7 +5423,7 @@ MeshCollider:
   m_GameObject: {fileID: 6490420102884637493}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -5538,7 +5538,7 @@ MeshCollider:
   m_GameObject: {fileID: 6490420103283122875}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -5653,7 +5653,7 @@ MeshCollider:
   m_GameObject: {fileID: 6490420103527700437}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -5768,7 +5768,7 @@ MeshCollider:
   m_GameObject: {fileID: 6490420103536007512}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -5916,7 +5916,7 @@ MeshCollider:
   m_GameObject: {fileID: 6490420104231396469}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
@@ -6031,7 +6031,7 @@ MeshCollider:
   m_GameObject: {fileID: 6490420104349757290}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30

@@ -3177,8 +3177,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tmpProText: {fileID: 1844108090}
   delayBeforeStart: 0.5
-  delayBeforeErasure: 1
-  timeBtwChars: 0.55
+  delayBeforeErasure: 3.5
+  timeBtwChars: 0.07
   eraseInterval: 0.05
   leadingChar: <
   leadingCharBeforeDelay: 0
