@@ -51,7 +51,7 @@ public class DeathOverlay : MonoBehaviour
 
             if (timer >= transitionDelay) break;
 
-            yield return endOfFrame;
+            yield return null;
         }
 
         SceneTransitioner.StartTransitionToNextScene(SceneManager.GetActiveScene().name);

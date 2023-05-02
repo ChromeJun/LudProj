@@ -24,8 +24,13 @@ public class StartScreen : MonoBehaviour
 
         while (true)
         {
-            if (Input.anyKeyDown) SceneTransitioner.StartTransitionToNextScene("Level1");
-            yield return endOfFrame;
+            if (Input.anyKeyDown)
+            {
+                SceneTransitioner.StartTransitionToNextScene("Level1");
+                break;
+            }
+
+            yield return null;
         }
     }
 }

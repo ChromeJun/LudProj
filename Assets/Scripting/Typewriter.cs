@@ -81,7 +81,7 @@ public class Typewriter : MonoBehaviour
 				stringTimer = timeBtwChars;
 			}
 
-			yield return endOfFrame;
+			yield return null;
 
 			if (stringTimer >= timeBtwChars)
             {
